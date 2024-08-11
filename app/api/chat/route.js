@@ -5,7 +5,7 @@ const { VertexAI } = require("@google-cloud/vertexai");
 
 // Parse the credentials from the environment variable
 
-const credentials = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
+const credentials = JSON.stringify(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
 
 // Create a new GoogleAuth instance with the credentials
 const auth = new GoogleAuth({
