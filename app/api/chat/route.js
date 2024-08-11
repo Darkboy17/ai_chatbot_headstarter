@@ -1,11 +1,23 @@
 import { NextResponse } from "next/server"; // Import NextResponse from Next.js for handling responses
+import { GoogleAuth } from "google-auth-library";
 
 const { VertexAI } = require("@google-cloud/vertexai");
+
+// Parse the credentials from the environment variable
+
+const credentials = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
+
+// Create a new GoogleAuth instance with the credentials
+const auth = new GoogleAuth({
+  credentials,
+  scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+});
 
 // Initialize Vertex with your Cloud project and location
 const vertex_ai = new VertexAI({
   project: "eminent-will-432005-a5",
   location: "us-central1",
+  auth: auth,
 });
 const model = "gemini-1.5-flash-001";
 
