@@ -1,26 +1,41 @@
-import { NextResponse } from "next/server"; // Import NextResponse from Next.js for handling responses
 import { GoogleAuth } from "google-auth-library";
 
 const { VertexAI } = require("@google-cloud/vertexai");
 
-// Parse the credentials from the environment variable
+// Assuming you have the base64 encoded service account key stored in SERVICE_ACCOUNT_KEY_BASE64 environment variable
+const encodedKey = process.env.SERVICE_ACCOUNT_KEY_BASE64;
+if (!encodedKey) {
+  throw new Error(
+    "SERVICE_ACCOUNT_KEY_BASE64 environment variable is missing."
+  );
+}
 
-const credentials = JSON.stringify(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
+// Decode the base64 encoded key
+const decodedKey = Buffer.from(encodedKey, "base64").toString("utf-8");
 
-// Create a new GoogleAuth instance with the credentials
+// Parse the decoded key into a JavaScript object
+const serviceAccountKey = JSON.parse(decodedKey);
+
+// Create a new GoogleAuth instance and specify the target scopes
 const auth = new GoogleAuth({
-  credentials,
-  scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+  credentials: serviceAccountKey,
+  scopes: ["https://www.googleapis.com/auth/cloud-platform"],
 });
+
+// Get the client object
+const client = await auth.getClient();
 
 // Initialize Vertex with your Cloud project and location
 const vertex_ai = new VertexAI({
   project: "eminent-will-432005-a5",
   location: "us-central1",
-  auth: auth,
+  client,
 });
+
+// Model currently in use
 const model = "gemini-1.5-flash-001";
 
+// Inform the AI what should it focus on when trying to give answers to users.
 const textsi_1 = {
   text: `I am developing a customer support chatbot for Headstarter AI, a platform specialized in conducting AI-powered interviews for Software Engineering positions. The bot should be capable of handling a wide range of queries including but not limited to scheduling interviews, explaining AI features, addressing technical issues, and providing resources for interview preparation. Please generate a series of conversational responses that reflect a knowledgeable and helpful demeanor. Each response should be tailored to address common inquiries and effectively guide users towards resolving their issues or finding the information they seek. Don't answer question that are out of context and stick to what you are told to do.\"
 
@@ -62,21 +77,23 @@ export async function POST(req) {
   // Assuming the request body contains the initial user message
   const contents = await req.json();
 
-  console.log('contents:', contents);
-  
+  console.log("contents:", contents);
+
   // Find the last user message
-  const lastUserMessage = contents.reverse().find(item => item.role === 'user');
+  const lastUserMessage = contents
+    .reverse()
+    .find((item) => item.role === "user");
 
   if (!lastUserMessage) {
-    return new Response('No user message found', { status: 400 });
+    return new Response("No user message found", { status: 400 });
   }
 
   const reqBody = {
     contents: [
       {
-        role: 'user',
-        parts: [{ text: lastUserMessage.content }]
-      }
+        role: "user",
+        parts: [{ text: lastUserMessage.content }],
+      },
     ],
   };
 
@@ -97,10 +114,8 @@ export async function POST(req) {
   // Return a streaming response
   return new Response(stream, {
     headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-      'Transfer-Encoding': 'chunked',
+      "Content-Type": "text/plain; charset=utf-8",
+      "Transfer-Encoding": "chunked",
     },
   });
-
-    
 }

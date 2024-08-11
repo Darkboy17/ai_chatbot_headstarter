@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ai-sdk/google-vertex": "^0.0.25",
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@google-cloud/vertexai": "^1.4.0",
