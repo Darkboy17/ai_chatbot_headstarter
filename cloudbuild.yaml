@@ -1,9 +1,0 @@
-steps:
-- name: 'gcr.io/cloud-builders/gcloud'
-  args:
-  - 'beta'
-  - 'deploy'
-  - 'run'
-  - 'ai-chatbot-headstarterai-service'
-  - '--image=gcr.io/$PROJECT_ID/my-nextjs-app'
-  - '--set-env-vars=SERVICE_ACCOUNT_KEY_BASE64=${_SERVICE_ACCOUNT_KEY_BASE64}'

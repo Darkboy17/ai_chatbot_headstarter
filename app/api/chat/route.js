@@ -27,7 +27,7 @@ const client = await auth.getClient();
 
 // Initialize Vertex with your Cloud project and location
 const vertex_ai = new VertexAI({
-  project: "eminent-will-432005-a5",
+  project: "ai-chatbot-headstarterai",
   location: "us-central1",
   client,
 });
