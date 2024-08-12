@@ -1,0 +1,7 @@
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: bash
+  args:
+  - '-c'
+  - |
+    echo "export SERVICE_ACCOUNT_KEY_BASE64=${_SERVICE_ACCOUNT_KEY_BASE64}" > .env.local
