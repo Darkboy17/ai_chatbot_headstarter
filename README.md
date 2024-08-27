@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Custom Support AI
+
+A customizable AI chatbot for customer support applications.
+
+## Table of Contents
+
+-   Overview
+-   Features
+-   Getting Started
+-   Usage
+-   Installation
+-   API Documentation
+-   Contributing
+-   License
+
+## Overview
+
+Custom Support AI is an open-source, customizable AI chatbot designed specifically for customer support applications. It leverages state-of-the-art natural language processing (NLP) and machine learning algorithms to provide intelligent, human-like responses to customer inquiries. The system is highly adaptable and can be trained on specific data sets to improve its performance for particular industries or use cases.
+
+## Features
+
+-   **Adaptive Learning**: Continuously learns and improves response accuracy over time.
+-   **Contextual Understanding**: Maintains context throughout conversations for more accurate responses.
+-   **Customizable Knowledge Base**: Easily updateable with industry-specific information.
+-   **Scalability**: Handles high volumes of concurrent conversations efficiently.
+-   **Security**: Implements robust security measures to protect sensitive customer data.
 
 ## Getting Started
 
-First, run the development server:
+1.  Clone the repository:
+```
+   git clone https://github.com/Darkboy17/custom-support-ai.git
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2.  Install dependencies:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```
+   npm install
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
 
-## Learn More
+3.  Set up your environment variables: Create a  `.env`  file in the root directory and add your configuration:
 
-To learn more about Next.js, take a look at the following resources:
+```
+   SERVICE_ACCOUNT_KEY_BASE64='your_vertexai_api_key'
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Usage
 
-## Deploy on Vercel
+To run the server:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+npm start
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+
+The bot will be available at  `http://localhost:3000`. You can interact with it directly in your browser.
+
+## Installation
+
+For production use, consider deploying the application to a cloud platform like Heroku, AWS Lambda, or Google Cloud Functions.
